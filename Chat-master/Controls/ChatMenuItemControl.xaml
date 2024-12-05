@@ -1,0 +1,80 @@
+﻿<controls:NavigationViewItem
+    x:Class="Chat.Controls.ChatMenuItemControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Chat.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
+    mc:Ignorable="d"
+    Width="392"
+    d:DesignHeight="300"
+    d:DesignWidth="392">
+
+    <controls:NavigationViewItem.ContextFlyout>
+        <MenuFlyout Placement="Top">
+            <!-- Delete -->
+            <MenuFlyoutItem Text="Delete" Icon="Delete" x:Name="DeleteConvoButton" Click="DeleteConvoButton_Click">
+                <Windows10FallCreatorsUpdate:MenuFlyoutItem.KeyboardAccelerators>
+                    <Windows10FallCreatorsUpdate:KeyboardAccelerator Key="D" Modifiers="Control"/>
+                </Windows10FallCreatorsUpdate:MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+    </controls:NavigationViewItem.ContextFlyout>
+
+    <Grid Margin="-12,0,0,0" HorizontalAlignment="Stretch" Padding="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Profile Picture -->
+        <controls:PersonPicture Grid.Row="0"
+                       x:Name="PeoplePic"
+                       Grid.RowSpan="2"
+                       Grid.Column="0"
+                       Height="38"
+                       VerticalAlignment="Center"
+                       Contact="{x:Bind ViewModel.Contact, Mode=OneWay}"
+                       Margin="0,0,12,0"/>
+
+        <!-- Name -->
+        <TextBlock Grid.Row="0"
+                   x:Name="ChatName"
+                   Grid.Column="1"
+                   TextTrimming="CharacterEllipsis"
+                   Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
+                   MaxLines="1"
+                   Style="{ThemeResource FluentBaseTextStyle}" />
+
+        <!-- Date -->
+        <TextBlock Grid.Row="0"        
+                   x:Name="ChatDate"
+                   Grid.Column="2"
+                   VerticalAlignment="Center"
+                   TextTrimming="CharacterEllipsis"
+                   MaxLines="1"
+                   Text="{x:Bind ViewModel.TimeStamp.ToShortTimeString(), Mode=OneWay}"
+                   Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                   Style="{ThemeResource FluentCaptionTextStyle}" />
+
+        <!-- Content -->
+        <TextBlock Grid.Row="1"       
+                   x:Name="ChatContent"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   Margin="0,4,0,0"
+                   TextWrapping="Wrap"
+                   TextTrimming="CharacterEllipsis"
+                   MaxLines="3"
+                   Text="{x:Bind ViewModel.DisplayDescription, Mode=OneWay}"
+                   Style="{ThemeResource FluentSubbodyTextStyle}" />
+
+    </Grid>
+</controls:NavigationViewItem>

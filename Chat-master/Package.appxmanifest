@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap mp">
+
+  <Identity
+    Name="LumiaWOA.Chat"
+    Publisher="CN=Windows On Lumia Development Second Party Software 2020"
+    Version="1.0.122.0" />
+
+  <mp:PhoneIdentity PhoneProductId="d8719107-e9ed-450f-be3e-88003464d950" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>Chat</DisplayName>
+    <PublisherDisplayName>LumiaWOA</PublisherDisplayName>
+    <Logo>Assets\ApplicationLogos\PackageLogo\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+  
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="Chat.App">
+      <uap:VisualElements
+        DisplayName="Chat"
+        Square150x150Logo="Assets\ApplicationLogos\MediumTile\Square150x150Logo.png"
+        Square44x44Logo="Assets\ApplicationLogos\AppIcon\Square44x44Logo.png"
+        Description="Send text messages using your device."
+        BackgroundColor="transparent">
+        <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\ApplicationLogos\BadgeLogo\BadgeLogo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\ApplicationLogos\WideTile\Wide310x150Logo.png" Square71x71Logo="Assets\ApplicationLogos\SmallTile\SmallTile.png" Square310x310Logo="Assets\ApplicationLogos\LargeTile\LargeTile.png" ShortName="Chat">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+            <uap:ShowOn Tile="square150x150Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\ApplicationLogos\SplashScreen\SplashScreen.png"  />
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="ms-chat"/>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="sms"/>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="ms-ipmessaging">
+            <uap:DisplayName>Send a text message</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Chat.BackgroundTasks.SmsBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="general"/>
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Chat.BackgroundTasks.ChatMessageNotificationBackgroundTask">
+          <BackgroundTasks>
+            <uap:Task Type="chatMessageNotification"/>
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Chat.BackgroundTasks.SmsReplyBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="systemEvent"/>
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.updateTask"  EntryPoint="Chat.BackgroundTasks.UpdateTask">
+        </Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClientServer"/>
+    
+    <uap:Capability Name="blockedChatMessages"/>
+    
+    <rescap:Capability Name="dualSimTiles"/>
+    
+    <rescap:Capability Name="enterpriseDataPolicy"/>
+    
+    <rescap:Capability Name="smsSend"/>
+    
+    <uap:Capability Name="phoneCall"/>
+    <rescap:Capability Name="phoneCallSystem" />
+    
+    <rescap:Capability Name="phoneCallHistory"/>
+    <rescap:Capability Name="phoneCallHistorySystem" />
+    
+    <uap:Capability Name="chat"/>
+    <rescap:Capability Name="chatSystem"/>
+    
+    <rescap:Capability Name="cellularMessaging"/>
+    <rescap:Capability Name="cellularDeviceIdentity"/>
+    <rescap:Capability Name="cellularDeviceControl"/>
+    
+    <uap:Capability Name="contacts"/>
+    <rescap:Capability Name="contactsSystem"/>
+    
+    <DeviceCapability Name="location"/>
+    <DeviceCapability Name="microphone"/>
+  </Capabilities>
+</Package>

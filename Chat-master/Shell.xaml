@@ -1,0 +1,70 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Chat"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Chat.Controls"
+             xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+             x:Class="Chat.Shell"
+             mc:Ignorable="d"
+             muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+             d:DesignHeight="800"
+             d:DesignWidth="1500">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <controls:TitlebarControl x:Name="Titlebar"
+                                  HorizontalAlignment="Stretch"/>
+
+        <muxc:NavigationView IsBackButtonVisible="Collapsed" 
+                             Grid.Row="1"
+                             x:Name="NavigationView" 
+                             IsSettingsVisible="False" 
+                             AlwaysShowHeader="True" 
+                             OpenPaneLength="392" 
+                             CompactPaneLength="62"
+                             SelectionChanged="NavigationView_SelectionChanged" 
+                             SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}" 
+                             MenuItemsSource="{x:Bind ViewModel.ChatConversations, Mode=OneWay}">
+            <muxc:NavigationView.AutoSuggestBox>
+                <AutoSuggestBox VerticalAlignment="Center" 
+                                QueryIcon="Find" 
+                                PlaceholderText="Find a conversation" 
+                                TextBoxStyle="{StaticResource TextBoxNoBackground}"/>
+            </muxc:NavigationView.AutoSuggestBox>
+
+            <muxc:NavigationView.PaneHeader>
+                <Grid Width="352">
+                    <Grid Margin="36,-4,8,0" VerticalAlignment="Top">
+                        <TextBlock Text="Conversations" VerticalAlignment="Center" Style="{ThemeResource FluentSubheaderTextStyle}"/>
+                        <CommandBar Background="Transparent">
+                            <CommandBar.PrimaryCommands>
+                                <AppBarButton Icon="Add" x:Name="NewConvoButton" Command="{x:Bind NewConvoCommand}"/>
+                            </CommandBar.PrimaryCommands>
+                            <CommandBar.SecondaryCommands>
+                                <AppBarButton x:Name="AboutButton" Label="About" Command="{x:Bind OpenAboutCommand}">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xE946;"/>
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+                            </CommandBar.SecondaryCommands>
+                        </CommandBar>
+                    </Grid>
+                </Grid>
+            </muxc:NavigationView.PaneHeader>
+
+            <Grid HorizontalAlignment="Stretch">
+                <Frame x:Name="MainFrame">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <EdgeUIThemeTransition Edge="Left"/>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+            </Grid>
+        </muxc:NavigationView>
+    </Grid>
+</UserControl>
